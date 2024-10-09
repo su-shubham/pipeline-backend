@@ -17,12 +17,12 @@
           "title": "Link HTML",
           "type": "string"
         },
-        "link-text": {
-          "description": "The scraped text of the link associated with this webpage link, in plain text",
+        "markdown": {
+          "description": "The markdown content associated with this webpage link",
           "instillFormat": "string",
           "instillUIMultiline": true,
           "instillUIOrder": 2,
-          "title": "Link Text",
+          "title": "Markdown",
           "type": "string"
         },
         "title": {
@@ -76,9 +76,9 @@
           "title": "Include Link HTML",
           "type": "boolean"
         },
-        "include-link-text": {
+        "include-markdown": {
           "default": false,
-          "description": "Indicate whether to scrape the link and include the text of the link associated with this page in the 'link-text' field",
+          "description": "Indicate whether to include the markdown content associated with this page in the 'markdown' field",
           "instillAcceptFormats": [
             "boolean"
           ],
@@ -87,7 +87,7 @@
             "value",
             "reference"
           ],
-          "title": "Include Link Text",
+          "title": "Include Markdown",
           "type": "boolean"
         },
         "max-k": {
