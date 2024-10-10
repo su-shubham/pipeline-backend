@@ -159,6 +159,34 @@ Future enhancements will include additional user interactions, such as:
 This function aims to provide a robust framework for interacting with web pages and extracting dynamic content effectively.
 ## Example Recipes
 
+Recipe for the [Web crawler](https://instill.tech/instill-ai/pipelines/web-crawler/playground) pipeline.
+
+``yaml
+version: v1beta
+component:
+  crawler:
+    type: web
+    task: TASK_CRAWL_WEBSITE
+    input:
+      target-url: ${variable.url}
+      allowed-domains:
+      include-markdown: true
+      only-main-content: true
+      timeout: 5000
+      max-k: 10
+    condition:
+variable:
+    url:
+      title: url
+      description: The url of the web you want to crawl
+      instill-format: string
+output:
+  link:
+    title: Link
+    value: ${crawler.output.pages[page_number].markdown}
+```
+
+
 Recipe for the [Web scraper](https://instill.tech/instill-ai/pipelines/web-scraper/playground) pipeline.
 
 ```yaml
