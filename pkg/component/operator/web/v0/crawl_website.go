@@ -21,7 +21,7 @@ import (
 type PageInfo struct {
 	Link     string `json:"link"`
 	Title    string `json:"title"`
-	LinkText string `json:"link-text"`
+	Markdown string `json:"markdown"`
 	LinkHTML string `json:"link-html"`
 }
 
@@ -33,8 +33,8 @@ type ScrapeWebsiteInput struct {
 	AllowedDomains []string `json:"allowed-domains"`
 	// MaxK: The maximum number of pages to scrape.
 	MaxK int `json:"max-k"`
-	// IncludeLinkText: Whether to include the scraped text of the scraped web page.
-	IncludeLinkText *bool `json:"include-link-text"`
+	// IncludeMarkdown: Whether to include the markdown content associated with this page in the 'markdown' field
+	IncludeMarkdown *bool `json:"include-markdown"`
 	// IncludeLinkHTML: Whether to include the scraped HTML of the scraped web page.
 	IncludeLinkHTML *bool `json:"include-link-html"`
 	// OnlyMainContent: Whether to scrape only the main content of the web page. If true, the scraped text wull exclude the header, nav, footer.
@@ -54,9 +54,9 @@ func (inputStruct *ScrapeWebsiteInput) Preset() {
 		b := false
 		inputStruct.IncludeLinkHTML = &b
 	}
-	if inputStruct.IncludeLinkText == nil {
+	if inputStruct.IncludeMarkdown == nil {
 		b := false
-		inputStruct.IncludeLinkText = &b
+		inputStruct.IncludeMarkdown = &b
 	}
 	if inputStruct.MaxK < 0 {
 		inputStruct.MaxK = 0
@@ -151,7 +151,7 @@ func (e *execution) CrawlWebsite(input *structpb.Struct) (*structpb.Struct, erro
 			page.LinkHTML = html
 		}
 
-		if *inputStruct.IncludeLinkText {
+		if *inputStruct.IncludeMarkdown {
 			domain, err := util.GetDomainFromURL(strippedURL.String())
 
 			if err != nil {
@@ -166,7 +166,7 @@ func (e *execution) CrawlWebsite(input *structpb.Struct) (*structpb.Struct, erro
 				return
 			}
 
-			page.LinkText = markdown
+			page.Markdown = markdown
 		}
 
 		defer mu.Unlock()
